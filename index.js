@@ -36,9 +36,12 @@ var env = process.env.NODE_ENV || 'development';
 var proto = {};
 
 /* istanbul ignore next */
-var defer = typeof setImmediate === 'function'
-  ? setImmediate
-  : function(fn){ process.nextTick(fn.bind.apply(fn, arguments)) }
+var defer =
+  typeof setImmediate === 'function'
+    ? setImmediate
+    : function (fn) {
+        process.nextTick(fn.bind.apply(fn, arguments));
+      };
 
 /**
  * Create a new connect server.
@@ -48,7 +51,9 @@ var defer = typeof setImmediate === 'function'
  */
 
 function createServer() {
-  function app(req, res, next){ app.handle(req, res, next); }
+  function app(req, res, next) {
+    app.handle(req, res, next);
+  }
   merge(app, proto);
   merge(app, EventEmitter.prototype);
   app.route = '/';
@@ -124,10 +129,12 @@ proto.handle = function handle(req, res, out) {
   var stack = this.stack;
 
   // final function handler
-  var done = out || finalhandler(req, res, {
-    env: env,
-    onerror: logerror
-  });
+  var done =
+    out ||
+    finalhandler(req, res, {
+      env: env,
+      onerror: logerror,
+    });
 
   // store the original URL
   req.originalUrl = req.originalUrl || req.url;
@@ -271,7 +278,7 @@ function getProtohost(url) {
     return undefined;
   }
 
-  var fqdnIndex = url.indexOf('://')
+  var fqdnIndex = url.indexOf('://');
 
   return fqdnIndex !== -1 && url.lastIndexOf('?', fqdnIndex) === -1
     ? url.substr(0, url.indexOf('/', 3 + fqdnIndex))

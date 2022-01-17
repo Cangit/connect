@@ -2,6 +2,8 @@
 ==================
 
   * BREAKING: Ending support for node version < 14
+  * deps: eslint 7 -> 8
+  * deps: added prettier
 
 
 3.7.0 / 2019-05-17

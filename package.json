@@ -23,9 +23,10 @@
     "utils-merge": "1.0.1"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
+    "eslint": "8.7.0",
     "mocha": "9.1.0",
     "nyc": "15.1.0",
+    "prettier": "2.5.1",
     "supertest": "6.1.6"
   },
   "license": "MIT",
