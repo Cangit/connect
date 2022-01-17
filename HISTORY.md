@@ -1,3 +1,9 @@
+4.0.0 / XXXX-XX-XX
+==================
+
+  * BREAKING: Ending support for node version < 14
+
+
 3.7.0 / 2019-05-17
 ==================
 
