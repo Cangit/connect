@@ -1,5 +1,10 @@
 root: true
-rules:
-  eol-last: error
-  no-trailing-spaces: error
-  no-unused-vars: ["error", { "args": "none" }]
+extends:
+  - 'eslint:recommended'
+  - 'prettier'
+parserOptions:
+  sourceType: 'module'
+  ecmaVersion: 2019
+env:
+  browser: false
+  node: true

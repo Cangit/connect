@@ -3,37 +3,19 @@
  * Copyright(c) 2010 Sencha Inc.
  * Copyright(c) 2011 TJ Holowaychuk
  * Copyright(c) 2015 Douglas Christopher Wilson
+ * Copyright(c) 2022 Fredric Endrerud
  * MIT Licensed
  */
 
-'use strict';
+import EventEmitter from 'events';
+import finalhandler from 'finalhandler';
+import http from 'http';
+import merge from 'utils-merge';
+import parseUrl from 'parseurl';
+import debug from 'debug';
 
-/**
- * Module dependencies.
- * @private
- */
-
-var debug = require('debug')('connect:dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var finalhandler = require('finalhandler');
-var http = require('http');
-var merge = require('utils-merge');
-var parseUrl = require('parseurl');
-
-/**
- * Module exports.
- * @public
- */
-
-module.exports = createServer;
-
-/**
- * Module variables.
- * @private
- */
-
-var env = process.env.NODE_ENV || 'development';
-var proto = {};
+const env = process.env.NODE_ENV || 'development';
+const proto = {};
 
 /* istanbul ignore next */
 var defer =
@@ -164,7 +146,7 @@ proto.handle = function handle(req, res, out) {
     var route = layer.route;
 
     // skip this layer if the route doesn't match
-    if (path.toLowerCase().substr(0, route.length) !== route.toLowerCase()) {
+    if (path.toLowerCase().substring(0, route.length) !== route.toLowerCase()) {
       return next(err);
     }
 
@@ -281,6 +263,8 @@ function getProtohost(url) {
   var fqdnIndex = url.indexOf('://');
 
   return fqdnIndex !== -1 && url.lastIndexOf('?', fqdnIndex) === -1
-    ? url.substr(0, url.indexOf('/', 3 + fqdnIndex))
+    ? url.substring(0, url.indexOf('/', 3 + fqdnIndex))
     : undefined;
 }
+
+export default createServer;
