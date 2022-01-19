@@ -2,6 +2,7 @@
 ==================
 
   * BREAKING: Ending support for node version < 14
+  * fix: substr() -> substring()
   * deps: remove utils-merge dependency
   * deps: eslint 7 -> 8
   * deps: added prettier
