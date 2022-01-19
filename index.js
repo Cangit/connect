@@ -10,7 +10,6 @@
 import EventEmitter from 'events';
 import finalhandler from 'finalhandler';
 import http from 'http';
-import merge from 'utils-merge';
 import parseUrl from 'parseurl';
 import debug from 'debug';
 
@@ -26,6 +25,23 @@ var defer =
       };
 
 /**
+ *
+ * @param {Object} a
+ * @param {Object} b
+ * @return {Object}
+ * @private
+ */
+
+function merge(a, b) {
+  if (a && b) {
+    for (var key in b) {
+      a[key] = b[key];
+    }
+  }
+  return a;
+}
+
+/**
  * Create a new connect server.
  *
  * @return {function}
@@ -36,6 +52,7 @@ function createServer() {
   function app(req, res, next) {
     app.handle(req, res, next);
   }
+
   merge(app, proto);
   merge(app, EventEmitter.prototype);
   app.route = '/';
