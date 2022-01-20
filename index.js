@@ -33,15 +33,6 @@ var defer =
  * @private
  */
 
-function merge(a, b) {
-  if (a && b) {
-    for (var key in b) {
-      a[key] = b[key];
-    }
-  }
-  return a;
-}
-
 /**
  * Create a new connect server.
  *
@@ -54,8 +45,13 @@ function createServer() {
     app.handle(req, res, next);
   }
 
-  merge(app, proto);
-  merge(app, EventEmitter.prototype);
+  if (proto) {
+    Object.assign(app, proto);
+  }
+  if (EventEmitter.prototype) {
+    Object.assign(app, EventEmitter.prototype);
+  }
+
   app.route = '/';
   app.stack = [];
   return app;
