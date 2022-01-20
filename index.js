@@ -15,6 +15,7 @@ import debug from 'debug';
 
 const env = process.env.NODE_ENV || 'development';
 const proto = {};
+const debugDispatcher = debug('connect:dispatcher');
 
 /* istanbul ignore next */
 var defer =
@@ -107,7 +108,7 @@ proto.use = function use(route, fn) {
   }
 
   // add the middleware
-  debug('use %s %s', path || '/', handle.name || 'anonymous');
+  debugDispatcher('use %s %s', path || '/', handle.name || 'anonymous');
   this.stack.push({ route: path, handle: handle });
 
   return this;
@@ -233,7 +234,12 @@ function call(handle, route, err, req, res, next) {
   var error = err;
   var hasError = Boolean(err);
 
-  debug('%s %s : %s', handle.name || '<anonymous>', route, req.originalUrl);
+  debugDispatcher(
+    '%s %s : %s',
+    handle.name || '<anonymous>',
+    route,
+    req.originalUrl
+  );
 
   try {
     if (hasError && arity === 4) {
